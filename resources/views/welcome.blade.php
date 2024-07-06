@@ -70,9 +70,57 @@
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 							<li><a href="{{URL::to ('/login-checkout')}}"><i class="fa fa-user"></i> Tài khoản</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+
+
+							 <?php 
+							 $customer_id = Session::get('customer_id');
+							 $shipping_id = Session::get('shipping_id');
+							 if($customer_id != NULL && $shipping_id == NULL){
+							 ?>
+							 <?PHP
+							 }elseif($customer_id !=NULL && $shipping_id != NULL){
+							 ?>
+							 <li><a href="{{URL :: to('/payment')}}"><i class="fa fa-shopping-cart"></i> Phương thức thanh toán</a></li>
+							 <?php
+							 }else{
+							 ?>
+							 <li><a href="{{URL :: to('/login-checkout')}}"><i class="fa fa-shopping-cart"></i> Phương thức thanh toán</a></li>
+							 <?php
+							 }
+							 ?>
+
+
+
+							<?php 
+								$customer_id = Session::get('customer_id');
+								if ($customer_id != NULL){
+								?>
+								<li><a href="{{URL :: to('/checkout')}}"><i class="fa fa-shopping-cart"></i> Thanh toán</a></li>
+								<?php 
+								}else{
+								?>
+									<li><a href="{{URL :: to('/login-checkout')}}"><i class="fa fa-shopping-cart"></i> Thanh toán</a></li>
+								<?php 
+								}
+								?>
+								
+
 								<li><a href="{{URL :: to('/show-cart')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
-								<li><a href="{{url::to ('/login-checkout')}}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+								
+
+
+								<?php 
+								$customer_id = Session::get('customer_id');
+								if ($customer_id != NULL){
+								?>
+								<li><a href="{{url::to ('/logout-checkout')}}"><i class="fa fa-lock"></i> Đăng xuất</a></li>
+								<?php 
+								}else{
+								?>
+									<li><a href="{{url::to ('/login-checkout')}}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+								<?php 
+								}
+								?>
 							</ul>
 						</div>
 					</div>
@@ -145,24 +193,24 @@
 								<div class="col-sm-6">
 									<h1><span>HAVE A NICE MEAL</span></h1>
 									<h2>WHERE SHOULD WE DELIVER YOUR FOOD TODAY?</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+									<p>Thưởng thức một bữa ăn đầy màu sắc và hương vị, với sự kết hợp tinh tế giữa các nguyên liệu tươi ngon và cách chế biến độc đáo. </p>
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
-									<img src="front/images/home/girl1.jpg" class="girl img-responsive" alt="" />
-									<img src="front/images/home/pricing.png"  class="pricing" alt="" />
+									<img src="front/images/banner/banner1.jpg" class="girl img-responsive" alt="" />
+								
 								</div>
 							</div>
 							<div class="item">
 								<div class="col-sm-6">
 								<h1><span>HAVE A NICE MEAL</span></h1>
 								<h2>WHERE SHOULD WE DELIVER YOUR FOOD TODAY?</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+									<p>Một bữa tiệc ẩm thực đầy hấp dẫn với các món ăn được chế biến tỉ mỉ và trình bày đẹp mắt. Sự đa dạng của các nguyên liệu, từ những loại hải sản tươi sống, đến các loại thịt được tẩm ướp gia vị thơm ngon. </p>
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
-									<img src="front/images/home/girl2.jpg" class="girl img-responsive" alt="" />
-									<img src="front/images/home/pricing.png"  class="pricing" alt="" />
+								<img src="front/images/banner/banner2.png" class="girl img-responsive" alt="" />
+								
 								</div>
 							</div>
 							
@@ -170,12 +218,12 @@
 								<div class="col-sm-6">
 								<h1><span>HAVE A NICE MEAL</span></h1>
 								<h2>WHERE SHOULD WE DELIVER YOUR FOOD TODAY?</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+									<p>Những món ăn được chế biến công phu với sự kết hợp hài hòa giữa màu sắc và hương vị. </p>
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
-									<img src="front/images/home/girl3.jpg" class="girl img-responsive" alt="" />
-									<img src="front/images/home/pricing.png" class="pricing" alt="" />
+								<img src="front/images/banner/banner3.jpg" class="girl img-responsive" alt="" />
+									
 								</div>
 							</div>
 							
@@ -202,9 +250,7 @@
 						<h2>Danh mục</h2>
 						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
 							@foreach ($category as $key => $cate )
-							
 				
-							
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title"><a href="{{URL::to('danh-muc-san-pham/'.$cate->cate_id)}}">{{$cate->cate_name}}</a></h4>
@@ -253,7 +299,85 @@
 	</section>
 	
 	<footer id="footer"><!--Footer-->
-		
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="companyinfo">
+							<h2><span>e</span>-shopper</h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
+						</div>
+					</div>
+					<div class="col-sm-7">
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+									<img src="front/images/frame/frame1.jpg" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								
+							
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="front/images/frame/frame2.jpg" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								
+								
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+									<img src="front/images/frame/frame3.jpg" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								
+							
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+									<img src="front/images/frame/frame4.jpg" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								
+								
+							</div>
+						</div>
+						
+					</div>
+					<div class="col-sm-3">
+						<div class="address">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 		<div class="footer-widget">
 			<div class="container">
@@ -270,18 +394,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-2">
-						<div class="single-widget">
-							<h2>Quock Shop</h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">T-Shirt</a></li>
-								<li><a href="#">Mens</a></li>
-								<li><a href="#">Womens</a></li>
-								<li><a href="#">Gift Cards</a></li>
-								<li><a href="#">Shoes</a></li>
-							</ul>
-						</div>
-					</div>
+					
 					<div class="col-sm-2">
 						<div class="single-widget">
 							<h2>Policies</h2>
@@ -321,6 +434,13 @@
 			</div>
 		</div>
 		
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					
+				</div>
+			</div>
+		</div>
 		
 	</footer><!--/Footer-->
 	

@@ -1,21 +1,28 @@
 @extends('welcome')
 @section('content')
 
-
 <section id="cart_items">
 		<div class="container">
-			<div class="breadcrumbs">
+		<div class="breadcrumbs">
 				<ol class="breadcrumb">
 				  <li><a href="{{URL::to('/')}}">Trang chủ</a></li>
-				  <li class="active">Giỏ hàng</li>
+				  <li class="active">Thanh toán giỏ hàng</li>
 				</ol>
 			</div>
-			<div class="table-responsive cart_info">
+
+			<div class="shopper-informations">
+				<div class="row">
+					
+			
+			<div class="review-payment">
+				<h2>Xem lại giỏ hàng</h2>
+			</div>
+            <div class="table-responsive cart_info">
 			<?php
                 $content = Cart::content();
-                // echo '<pre>';
-                // print_r($content);
-                // echo '</pre>';
+                echo '<pre>';
+                print_r($content);
+                echo '</pre>';
                 ?>
 				<table class="table table-condensed">
 					<thead>
@@ -71,46 +78,27 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
-	</section> 
-	
-	<!--/#cart_items-->
 
-
-
-	<section id="do_action">
-		<div class="container">
-				<div class="col-sm-6">
-					<div class="total_area">
-						<ul>
-						<li>Tổng tiền <span>{{ number_format(Cart::total(), 0, ',', '.') . ' VND' }}</span></li>
-						<li>Phí vận chuyển <span>{{ number_format(Cart::tax(), 0, ',', '.') . ' VND' }}</span></li>
-							<li>Thành tiền <span>{{ number_format(Cart::total(), 0, ',', '.') . ' VND' }}</span></li>
-
-						</ul>
-							<!-- <a class="btn btn-default update" href="">Cập nhật</a> -->
-							
-
-							<?php 
-								$customer_id = Session::get('customer_id');
-								if ($customer_id != NULL){
-								?>
-								<a class="btn btn-default check_out" href="{{URL :: to('/checkout')}}">Thanh toán</a>
-								<?php 
-								}else{
-								?>
-									<a class="btn btn-default check_out" href="{{URL :: to('/login-checkout')}}">Thanh toán</a>
-								<?php 
-								}
-								?>
-							
-					</div>
-				</div>
+            <div class="review-payment">
+				<h2>Chọn hình thức thanh toán</h2>
 			</div>
+            <br>
+			<form method="post" action="{{URL::to('/order-place')}}">
+                {{csrf_field()}}
+            <div class="payment-options">
+					<span>
+						<label><input name="payment_option" value="1" type="checkbox"> Trả bằng thẻ ATM</label>
+					</span>
+					<span>
+						<label><input name="payment_option" value="2" type="checkbox"> Nhận tiền mặt</label>
+					</span>
+					<input type="submit" value="Đặt hàng" name="send_order_place" class="btn btn-primary btn-sm">
+				</div>
+            </form>
 		</div>
-	</section><!--/#do_action-->
+	</section> <!--/#cart_items-->
+	
+	
+	
 
-
-   
 @endsection
-					

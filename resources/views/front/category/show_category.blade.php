@@ -14,7 +14,7 @@
                         <img src="{{ asset('public/front/images/uploads/product/' . $product->product_image) }}" alt="" />
                         <h2>{{ $product->product_price }} VND</h2>
                         <p>{{ $product->product_name }}</p>
-                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i> Thêm giỏ hàng</a>
+                        <!-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i> Thêm giỏ hàng</a> -->
                     </div>
                 </div>
                 <div class="choose">

@@ -80,7 +80,7 @@
 								<div class="col-sm-12">
 									
 									<p>{{$value->product_desc}}</p>
-									<p><b>Viết cảm nhận của bạn</b></p>
+									<!-- <p><b>Viết cảm nhận của bạn</b></p>
 									
 									<form action="#">
 										<span>
@@ -92,7 +92,7 @@
 										<button type="button" class="btn btn-default pull-right">
 											Submit
 										</button>
-									</form>
+									</form> -->
 								</div>
 							</div>
 							

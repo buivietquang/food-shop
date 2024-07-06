@@ -1,21 +1,56 @@
 @extends('welcome')
 @section('content')
 
-
 <section id="cart_items">
 		<div class="container">
-			<div class="breadcrumbs">
+		<div class="breadcrumbs">
 				<ol class="breadcrumb">
 				  <li><a href="{{URL::to('/')}}">Trang chủ</a></li>
-				  <li class="active">Giỏ hàng</li>
+				  <li class="active">Thanh toán giỏ hàng</li>
 				</ol>
+			</div>
+
+			
+			
+
+			<div class="register-req">
+				<p>Hãy đăng kí hoặc đăng nhập để thanh toán giỏ hàng và xem lại lịch sử giao dịch</p>
+			</div><!--/register-req-->
+
+			<div class="shopper-informations">
+				<div class="row">
+					
+					<div class="col-sm-12 clearfix">
+						<div class="bill-to">
+							<p>Điền thông tin</p>
+							<div class="form-one">
+							<form action="{{ URL::to('/save-checkout-customer') }}" method="post">
+    {{ csrf_field() }}
+    <input type="text" name="shipping_email" placeholder="Email">
+    <input type="text" name="shipping_name" placeholder="Họ và tên">
+    <input type="text" name="shipping_address" placeholder="Địa chỉ">
+    <input type="text" name="shipping_phone" placeholder="Số điện thoại">
+    <textarea name="shipping_note" placeholder="Ghi chú đơn hàng của bạn" rows="16"></textarea>
+
+    <input type="submit" value="Thanh toán" name="send_order" class="btn btn-primary btn-sm">
+</form>
+
+							</div>
+							
+						</div>
+					</div>
+									
+				</div>
+			</div>
+			<div class="review-payment">
+				<h2>Xem lại giỏ hàng</h2>
 			</div>
 			<div class="table-responsive cart_info">
 			<?php
                 $content = Cart::content();
-                // echo '<pre>';
-                // print_r($content);
-                // echo '</pre>';
+                echo '<pre>';
+                print_r($content);
+                echo '</pre>';
                 ?>
 				<table class="table table-condensed">
 					<thead>
@@ -71,46 +106,23 @@
 					</tbody>
 				</table>
 			</div>
+
+				
+			<!-- <div class="payment-options">
+					<span>
+						<label><input type="checkbox"> Direct Bank Transfer</label>
+					</span>
+					<span>
+						<label><input type="checkbox"> Check Payment</label>
+					</span>
+					<span>
+						<label><input type="checkbox"> Paypal</label>
+					</span>
+				</div> -->
 		</div>
-	</section> 
+	</section> <!--/#cart_items-->
 	
-	<!--/#cart_items-->
+	
+	
 
-
-
-	<section id="do_action">
-		<div class="container">
-				<div class="col-sm-6">
-					<div class="total_area">
-						<ul>
-						<li>Tổng tiền <span>{{ number_format(Cart::total(), 0, ',', '.') . ' VND' }}</span></li>
-						<li>Phí vận chuyển <span>{{ number_format(Cart::tax(), 0, ',', '.') . ' VND' }}</span></li>
-							<li>Thành tiền <span>{{ number_format(Cart::total(), 0, ',', '.') . ' VND' }}</span></li>
-
-						</ul>
-							<!-- <a class="btn btn-default update" href="">Cập nhật</a> -->
-							
-
-							<?php 
-								$customer_id = Session::get('customer_id');
-								if ($customer_id != NULL){
-								?>
-								<a class="btn btn-default check_out" href="{{URL :: to('/checkout')}}">Thanh toán</a>
-								<?php 
-								}else{
-								?>
-									<a class="btn btn-default check_out" href="{{URL :: to('/login-checkout')}}">Thanh toán</a>
-								<?php 
-								}
-								?>
-							
-					</div>
-				</div>
-			</div>
-		</div>
-	</section><!--/#do_action-->
-
-
-   
 @endsection
-					
